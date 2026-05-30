@@ -57,7 +57,7 @@ loader.load('porte_xor.glb', (gltf) => {
   tige_piston_bascule = gltf.scene.getObjectByName("tige_piston_bascule");
   piston_bascule     = gltf.scene.getObjectByName("piston_bascule");
   tige_piston_s      = gltf.scene.getObjectByName("tige_piston_s");
-  pipe_e     = gltf.scene.getObjectByName("pipe_e");
+
 
   // Reparenting en préservant la position monde
   const worldPos   = new THREE.Vector3();
