@@ -84,8 +84,6 @@ startlevier2.addEventListener("click", () => {
 
 // ANIMATION
 
-pipe_e.material.emissiveIntensity = 2.0;
-
 function animate() {
   requestAnimationFrame(animate);
   controls.update();
