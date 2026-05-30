@@ -132,10 +132,6 @@ function animate() {
     leviers.rotateOnWorldAxis(axe_bascule,  delta_bascule * 0.5 );
     piston_bascule.rotateOnWorldAxis(axe_bascule, delta_bascule * 0.0524 );
     tige_piston_s.translateOnAxis(axeZ, delta_piston_s )
-    
-    
-
-  }
 
   renderer.render(scene, camera);
 }
