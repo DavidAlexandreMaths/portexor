@@ -30,10 +30,9 @@ scene.add(ambient);
 
 // MODEL
 const loader = new GLTFLoader();
-let roue1, roue2, roue3, roue4, roueS, diff;
-let pivotRoueS; // 👈 déclaré ici
+let levier1, levier2, leviers_bascule, tige_piston_bascule, piston_bascule, piston_s, tige_piston_s;
 
-loader.load('animation_diff7_new.glb', (gltf) => {
+loader.load('porte_xor.glb', (gltf) => {
   scene.add(gltf.scene);
 
   const box = new THREE.Box3().setFromObject(gltf.scene);
@@ -44,53 +43,49 @@ loader.load('animation_diff7_new.glb', (gltf) => {
   camera.lookAt(center);
   controls.target.copy(center);
 
-  roue1 = gltf.scene.getObjectByName("roue1");
-  roue2 = gltf.scene.getObjectByName("roue2");
-  roue3 = gltf.scene.getObjectByName("roue3");
-  roue4 = gltf.scene.getObjectByName("roue4");
-  roueS = gltf.scene.getObjectByName("roueS");
-  diff  = gltf.scene.getObjectByName("diff");
+  levier1 = gltf.scene.getObjectByName("levier1");
+  levier2 = gltf.scene.getObjectByName("levier2");
+  leviers_bascule = gltf.scene.getObjectByName("leviers_bascule");
+  tige_piston_bascule = gltf.scene.getObjectByName("tige_piston_bascule");
+  piston_bascule = gltf.scene.getObjectByName("piston_bascule");
+  piston_s  = gltf.scene.getObjectByName("piston_s");
+  tige_piston_s  = gltf.scene.getObjectByName("tige_piston_s");
 
-  const posCentre = new THREE.Vector3(
-    0.029368644580245018,
-    0.02801460772752762,
-    -0.020274734124541283
-  );
-
-  const posRoueS = new THREE.Vector3(
-    0.029432089999318123,
-    0.027950063347816467,
-    0.01196998730301857
-  );
-
-  pivotRoueS = new THREE.Group(); // 👈 assigné ici, mais déclaré en dehors
-  pivotRoueS.position.copy(posCentre);
-  scene.add(pivotRoueS);
-
-  const positionLocale = posRoueS.clone().sub(posCentre);
-  roueS.parent.remove(roueS);
-  roueS.position.copy(positionLocale);
-  pivotRoueS.add(roueS);
+  tige_piston_bascule.parent.remove(tige_piston_bascule);
+  piston_bascule.add(tige_piston_bascule);
 });
 
 // UI
-const turnInput = document.getElementById("turnInput");
-const startBtn  = document.getElementById("startBtn");
-const counter1  = document.getElementById("counter1");
-const counter2  = document.getElementById("counter2");
+const levier1  = document.getElementById("levier1");
+const levier2  = document.getElementById("levier2");
 
 // État animation
-let currentTurns = 0;
-let targetTurns  = 0;
-let lastTurns    = 0;
+let current_bascule = 0;
+let target_bascule  = 0;
+let last_bascule    = 0;
+let current_levier1 = 0;
+let target_levier1  = 0;
+let last_levier1    = 0;
+let current_levier2 = 0;
+let target_levier2  = 0;
+let last_levier2    = 0;
+let current_piston_s = 0;
+let target_piston_s  = 0;
+let last_piston_s    = 0;
 const speed    = 0.003;
-const axeRoue  = new THREE.Vector3(0, 0, 1);
-const axeS     = new THREE.Vector3(0, 1, 0);
+const axe_leviers_e  = new THREE.Vector3(0, 0, 1);
+const axe_bascule     = new THREE.Vector3(0, 1, 0);
 
-startBtn.addEventListener("click", () => {
-  currentTurns = 0;
-  lastTurns    = 0;
-  targetTurns  = parseFloat(turnInput.value);
+levier1.addEventListener("click", () => {
+  current_levier1 = 0;
+  last_levier1    = 0;
+  target_levier1  = 1;
+});
+
+levier2.addEventListener("click", () => {
+  current_levier2 = 0;
+  last_levier2    = 0;
+  target_levier2  = 1;
 });
 
 // ANIMATION
@@ -98,13 +93,30 @@ function animate() {
   requestAnimationFrame(animate);
   controls.update();
 
-  if (roue1 && roue2 && pivotRoueS) { // 👈 on vérifie aussi pivotRoueS
-    if (currentTurns < targetTurns) {
-      currentTurns = Math.min(currentTurns + speed, targetTurns);
+    if (current_levier1 < target_levier1) {
+      current_levier1 = Math.min(current_levier1 + speed, target_levier1);
     }
 
-    const delta = currentTurns - lastTurns;
-    lastTurns = currentTurns;
+    if (current_levier2 < target_levier2) {
+      current_levier2 = Math.min(current_levier2 + speed, target_levier2);
+    }
+
+    if (current_bascule < target_bascule) {
+      current_bascule = Math.min(current_bascule + speed, target_bascule);
+    }
+
+    if (current_piston_s < target_piston_s) {
+      current_piston_s = Math.min(current_piston_s + speed, target_piston_s);
+    }
+
+    const delta_levier1 = current_levier1 - last_levier1;
+    last_levier1 = current_levier1;
+    const delta_levier2 = current_levier2 - last_levier2;
+    last_levier2 = current_levier2;
+    const delta_bascule = current_bascule - last_bascule;
+    last_bascule = current_bascule;
+    const delta_piston_s = current_piston_s - last_piston_s;
+    last_piston_s = current_piston_s;
 
     roue1.rotateOnWorldAxis(axeRoue,  delta * Math.PI * 2);
     roue2.rotateOnWorldAxis(axeRoue, -delta * Math.PI * 2 * 3);
@@ -114,8 +126,6 @@ function animate() {
     pivotRoueS.rotateOnWorldAxis(axeRoue, -delta * Math.PI * 2 * 3);
     roueS.rotateOnWorldAxis(axeS, -delta * Math.PI * 2 * 4);
 
-    counter1.innerText = "Première roue : " + currentTurns.toFixed(2);
-    counter2.innerText = "Dernière roue : " + (-currentTurns * 7).toFixed(2);
   }
 
   renderer.render(scene, camera);
