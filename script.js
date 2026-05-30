@@ -29,11 +29,11 @@ let levier1, levier2, leviers_bascule, tige_piston_bascule, piston_bascule, tige
 let current_bascule = -1,  target_bascule = -1,  last_bascule = -1;
 let current_levier1 = -0.5, target_levier1 = -0.5, last_levier1 = -0.5;
 let current_levier2 = -0.5, target_levier2 = -0.5, last_levier2 = -0.5;
-let current_piston_s = 0,  target_piston_s = 0,  last_piston_s = 0;
+let current_piston_s = -0.01,  target_piston_s = -0.01,  last_piston_s = -0.01;
 
 const speed_leviers_e = 0.01;
 const speed_bascule   = 0.01;
-const speed_piston_s  = 0.005;
+const speed_piston_s  = 0.002;
 const axe_bascule     = new THREE.Vector3(0, 0, 1);
 const axeZ            = new THREE.Vector3(0, 1, 0);
 const axe_leviers_e   = new THREE.Vector3(1, 0, 0);
