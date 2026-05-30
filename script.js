@@ -33,7 +33,7 @@ let current_piston_s = 0,  target_piston_s = 0,  last_piston_s = 0;
 
 const speed_leviers_e = 0.01;
 const speed_bascule   = 0.01;
-const speed_piston_s  = 0.01;
+const speed_piston_s  = 0.005;
 const axe_bascule     = new THREE.Vector3(0, 0, 1);
 const axeZ            = new THREE.Vector3(0, 1, 0);
 const axe_leviers_e   = new THREE.Vector3(1, 0, 0);
