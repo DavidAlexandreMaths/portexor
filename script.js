@@ -24,7 +24,7 @@ const ambient = new THREE.AmbientLight(0xffffff, 1);
 scene.add(ambient);
 
 // ÉTAT ANIMATION (déclaré en dehors du loader)
-let levier1, levier2, leviers_bascule, tige_piston_bascule, piston_bascule, tige_piston_s;
+let levier1, levier2, leviers_bascule, tige_piston_bascule, piston_bascule, tige_piston_s, pipe_e;
 
 let current_bascule = -1,  target_bascule = -1,  last_bascule = -1;
 let current_levier1 = -0.5, target_levier1 = -0.5, last_levier1 = -0.5;
@@ -57,6 +57,7 @@ loader.load('porte_xor.glb', (gltf) => {
   tige_piston_bascule = gltf.scene.getObjectByName("tige_piston_bascule");
   piston_bascule     = gltf.scene.getObjectByName("piston_bascule");
   tige_piston_s      = gltf.scene.getObjectByName("tige_piston_s");
+  pipe_e     = gltf.scene.getObjectByName("pipe_e");
 
   // Reparenting en préservant la position monde
   const worldPos   = new THREE.Vector3();
@@ -82,6 +83,9 @@ startlevier2.addEventListener("click", () => {
 });
 
 // ANIMATION
+
+pipe_e.material.emissiveIntensity = 2.0;
+
 function animate() {
   requestAnimationFrame(animate);
   controls.update();
