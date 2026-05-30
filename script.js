@@ -152,7 +152,7 @@ function animate() {
 
     levier1.rotateOnWorldAxis(axe_leviers_e,  delta_levier1 );
     levier2.rotateOnWorldAxis(axe_leviers_e, delta_levier2 );
-    leviers_bascule.rotateOnWorldAxis(axe_bascule,  delta_bascule );
+    leviers_bascule.rotateOnWorldAxis(axe_bascule,  delta_bascule * 0.5 );
     piston_bascule.rotateOnWorldAxis(axe_bascule, delta_bascule * 0.0524 );
     tige_piston_s.translateOnAxis(axeZ, delta_piston_s )
 
