@@ -91,6 +91,8 @@ function animate() {
   requestAnimationFrame(animate);
   controls.update();
 
+   if (levier1 && levier2 && leviers_bascule && tige_piston_bascule && piston_bascule && tige_piston_s) {
+
     if (current_levier1 < target_levier1) {
       current_levier1 = Math.min(current_levier1 + speed_leviers_e, target_levier1);
     }
@@ -129,10 +131,12 @@ function animate() {
 
     levier1.rotateOnWorldAxis(axe_leviers_e,  delta_levier1 );
     levier2.rotateOnWorldAxis(axe_leviers_e, delta_levier2 );
-    leviers.rotateOnWorldAxis(axe_bascule,  delta_bascule * 0.5 );
+    leviers_bascule.rotateOnWorldAxis(axe_bascule,  delta_bascule * 0.5 );
     piston_bascule.rotateOnWorldAxis(axe_bascule, delta_bascule * 0.0524 );
     tige_piston_s.translateOnAxis(axeZ, delta_piston_s )
 
+   }
+  
   renderer.render(scene, camera);
 }
 animate();
