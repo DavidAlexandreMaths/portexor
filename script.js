@@ -50,9 +50,24 @@ loader.load('porte_xor.glb', (gltf) => {
   piston_bascule = gltf.scene.getObjectByName("piston_bascule");
   tige_piston_s  = gltf.scene.getObjectByName("tige_piston_s");
 
-  tige_piston_bascule.parent.remove(tige_piston_bascule);
-  piston_bascule.add(tige_piston_bascule);
-});
+  // Sauvegarde la position/rotation monde AVANT de changer de parent
+const worldPos = new THREE.Vector3();
+const worldQuat = new THREE.Quaternion();
+const worldScale = new THREE.Vector3();
+tige_piston_bascule.getWorldPosition(worldPos);
+tige_piston_bascule.getWorldQuaternion(worldQuat);
+tige_piston_bascule.getWorldScale(worldScale);
+
+// Change de parent
+tige_piston_bascule.parent.remove(tige_piston_bascule);
+piston_bascule.add(tige_piston_bascule);
+
+// Réapplique la position/rotation en espace local du nouveau parent
+piston_bascule.worldToLocal(worldPos);
+tige_piston_bascule.position.copy(worldPos);
+tige_piston_bascule.quaternion.copy(worldQuat); // si piston_bascule n'est pas tourné, sinon :
+// tige_piston_bascule.quaternion.premultiply(piston_bascule.getWorldQuaternion(new THREE.Quaternion()).invert());
+tige_piston_bascule.scale.copy(worldScale);
 
 // UI
 const startlevier1  = document.getElementById("startlevier1");
