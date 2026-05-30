@@ -74,9 +74,9 @@ let last_piston_s    = 0;
 const speed_leviers_e    = 0.003;
 const speed_bascule    = 0.003;
 const speed_piston_s    = 0.003;
-const axe_leviers_e  = new THREE.Vector3(0, 0, 1);
-const axe_bascule     = new THREE.Vector3(0, 1, 0);
-const axeZ = new THREE.Vector3(1, 0, 0);
+const axe_bascule  = new THREE.Vector3(0, 0, 1);
+const axeZ     = new THREE.Vector3(0, 1, 0);
+const axe_leviers_e = new THREE.Vector3(1, 0, 0);
 
 startlevier1.addEventListener("click", () => {
   target_levier1  = -target_levier1;
