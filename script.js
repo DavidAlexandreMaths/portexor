@@ -55,8 +55,8 @@ loader.load('porte_xor.glb', (gltf) => {
 });
 
 // UI
-const startlevier1  = document.getElementById("levier1");
-const startlevier2  = document.getElementById("levier2");
+const startlevier1  = document.getElementById("startlevier1");
+const startlevier2  = document.getElementById("startlevier2");
 
 // État animation
 let current_bascule = 0;
