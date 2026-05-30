@@ -56,4 +56,80 @@ loader.load('porte_xor.glb', (gltf) => {
   leviers_bascule    = gltf.scene.getObjectByName("leviers_bascule");
   tige_piston_bascule = gltf.scene.getObjectByName("tige_piston_bascule");
   piston_bascule     = gltf.scene.getObjectByName("piston_bascule");
-  tige_pis
+  tige_piston_s      = gltf.scene.getObjectByName("tige_piston_s");
+
+  // Reparenting en préservant la position monde
+  const worldPos   = new THREE.Vector3();
+  const worldQuat  = new THREE.Quaternion();
+  const worldScale = new THREE.Vector3();
+  tige_piston_bascule.getWorldPosition(worldPos);
+  tige_piston_bascule.getWorldQuaternion(worldQuat);
+  tige_piston_bascule.getWorldScale(worldScale);
+
+  piston_bascule.attach(tige_piston_bascule); // attach() préserve la position monde automatiquement
+
+}); // ← fin du loader.load
+
+// UI
+const startlevier1 = document.getElementById("startlevier1");
+const startlevier2 = document.getElementById("startlevier2");
+
+startlevier1.addEventListener("click", () => {
+  target_levier1 = -target_levier1;
+});
+startlevier2.addEventListener("click", () => {
+  target_levier2 = -target_levier2;
+});
+
+// ANIMATION
+function animate() {
+  requestAnimationFrame(animate);
+  controls.update();
+
+  if (levier1 && levier2 && leviers_bascule && tige_piston_bascule && piston_bascule && tige_piston_s) {
+
+    if (current_levier1 < target_levier1) current_levier1 = Math.min(current_levier1 + speed_leviers_e, target_levier1);
+    if (current_levier1 > target_levier1) current_levier1 = Math.max(current_levier1 - speed_leviers_e, target_levier1);
+
+    if (current_levier2 < target_levier2) current_levier2 = Math.min(current_levier2 + speed_leviers_e, target_levier2);
+    if (current_levier2 > target_levier2) current_levier2 = Math.max(current_levier2 - speed_leviers_e, target_levier2);
+
+    if (current_bascule < target_bascule) current_bascule = Math.min(current_bascule + speed_bascule, target_bascule);
+    if (current_bascule > target_bascule) current_bascule = Math.max(current_bascule - speed_bascule, target_bascule);
+
+    if (current_piston_s < target_piston_s) current_piston_s = Math.min(current_piston_s + speed_piston_s, target_piston_s);
+    if (current_piston_s > target_piston_s) current_piston_s = Math.max(current_piston_s - speed_piston_s, target_piston_s);
+
+    if (current_levier2 > 0) target_bascule = 1;
+    if (current_levier2 < 0) target_bascule = -1;
+
+    if ((current_levier1 < 0) === (current_bascule < 0)) {
+      target_piston_s = 0.01;
+    } else {
+      target_piston_s = -0.01;
+    }
+
+    const delta_levier1  = current_levier1  - last_levier1;  last_levier1  = current_levier1;
+    const delta_levier2  = current_levier2  - last_levier2;  last_levier2  = current_levier2;
+    const delta_bascule  = current_bascule  - last_bascule;  last_bascule  = current_bascule;
+    const delta_piston_s = current_piston_s - last_piston_s; last_piston_s = current_piston_s;
+
+    levier1.rotateOnWorldAxis(axe_leviers_e, delta_levier1);
+    levier2.rotateOnWorldAxis(axe_leviers_e, delta_levier2);
+    leviers_bascule.rotateOnWorldAxis(axe_bascule, delta_bascule * 0.5);
+    piston_bascule.rotateOnWorldAxis(axe_bascule, delta_bascule * 0.0524);
+
+    const localAxis = axeZ.clone().transformDirection(tige_piston_s.matrixWorld.clone().invert());
+    tige_piston_s.translateOnAxis(localAxis.normalize(), delta_piston_s);
+  }
+
+  renderer.render(scene, camera);
+}
+animate();
+
+// RESIZE
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
