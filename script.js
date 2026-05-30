@@ -55,8 +55,8 @@ loader.load('porte_xor.glb', (gltf) => {
 });
 
 // UI
-const levier1  = document.getElementById("levier1");
-const levier2  = document.getElementById("levier2");
+const startlevier1  = document.getElementById("levier1");
+const startlevier2  = document.getElementById("levier2");
 
 // État animation
 let current_bascule = 0;
@@ -78,11 +78,11 @@ const axe_leviers_e  = new THREE.Vector3(0, 0, 1);
 const axe_bascule     = new THREE.Vector3(0, 1, 0);
 const axeZ = new THREE.Vector3(1, 0, 0);
 
-levier1.addEventListener("click", () => {
+startlevier1.addEventListener("click", () => {
   target_levier1  = -target_levier1;
 });
 
-levier2.addEventListener("click", () => {
+startlevier2.addEventListener("click", () => {
   target_levier2  = -target_levier2;
 });
 
