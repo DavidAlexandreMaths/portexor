@@ -118,13 +118,11 @@ function animate() {
     const delta_piston_s = current_piston_s - last_piston_s;
     last_piston_s = current_piston_s;
 
-    roue1.rotateOnWorldAxis(axeRoue,  delta * Math.PI * 2);
-    roue2.rotateOnWorldAxis(axeRoue, -delta * Math.PI * 2 * 3);
-    roue3.rotateOnWorldAxis(axeRoue,  delta * Math.PI * 2 * 3);
-    roue4.rotateOnWorldAxis(axeRoue, -delta * Math.PI * 2 * 7);
-    diff.rotateOnWorldAxis(axeRoue,  -delta * Math.PI * 2 * 3);
-    pivotRoueS.rotateOnWorldAxis(axeRoue, -delta * Math.PI * 2 * 3);
-    roueS.rotateOnWorldAxis(axeS, -delta * Math.PI * 2 * 4);
+    levier1.rotateOnWorldAxis(axe_leviers_e,  delta_levier1 * Math.PI * 2);
+    levier2.rotateOnWorldAxis(axe_leviers_e, delta_levier2 * Math.PI * 2 );
+    leviers.rotateOnWorldAxis(axe_bascule,  delta_bascule * Math.PI * 2 );
+    piston_bascule.rotateOnWorldAxis(axe_bascule, delta_bascule * Math.PI * 2 );
+    
 
   }
 
