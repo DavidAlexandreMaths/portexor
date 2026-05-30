@@ -30,7 +30,7 @@ scene.add(ambient);
 
 // MODEL
 const loader = new GLTFLoader();
-let levier1, levier2, leviers_bascule, tige_piston_bascule, piston_bascule, piston_s, tige_piston_s;
+let levier1, levier2, leviers_bascule, tige_piston_bascule, piston_bascule, tige_piston_s;
 
 loader.load('porte_xor.glb', (gltf) => {
   scene.add(gltf.scene);
@@ -48,7 +48,6 @@ loader.load('porte_xor.glb', (gltf) => {
   leviers_bascule = gltf.scene.getObjectByName("leviers_bascule");
   tige_piston_bascule = gltf.scene.getObjectByName("tige_piston_bascule");
   piston_bascule = gltf.scene.getObjectByName("piston_bascule");
-  piston_s  = gltf.scene.getObjectByName("piston_s");
   tige_piston_s  = gltf.scene.getObjectByName("tige_piston_s");
 
   tige_piston_bascule.parent.remove(tige_piston_bascule);
@@ -77,6 +76,7 @@ const speed_bascule    = 0.003;
 const speed_piston_s    = 0.003;
 const axe_leviers_e  = new THREE.Vector3(0, 0, 1);
 const axe_bascule     = new THREE.Vector3(0, 1, 0);
+const axeZ = new THREE.Vector3(1, 0, 0);
 
 levier1.addEventListener("click", () => {
   target_levier1  = -target_levier1;
@@ -113,6 +113,11 @@ function animate() {
       current_piston_s = Math.min(current_piston_s + speed_piston_s, target_piston_s);
     }
 
+    if (current_levier2 > 0 ) {target_bascule = 1;}
+    if (current_levier2 < 0 ) {target_bascule = -1;}
+
+    if (current_levier1 < 0 == current_bascule < 0 ) {target_piston_s = 0.01;} else {target_piston_s = -0.01;} 
+
     const delta_levier1 = current_levier1 - last_levier1;
     last_levier1 = current_levier1;
     const delta_levier2 = current_levier2 - last_levier2;
@@ -124,8 +129,10 @@ function animate() {
 
     levier1.rotateOnWorldAxis(axe_leviers_e,  delta_levier1 );
     levier2.rotateOnWorldAxis(axe_leviers_e, delta_levier2 );
-    leviers.rotateOnWorldAxis(axe_bascule,  delta_bascule );
-    piston_bascule.rotateOnWorldAxis(axe_bascule, delta_bascule );
+    leviers.rotateOnWorldAxis(axe_bascule,  delta_bascule * 0.5 );
+    piston_bascule.rotateOnWorldAxis(axe_bascule, delta_bascule * 0.0524 );
+    tige_piston_s.translateOnAxis(axeZ, delta_piston_s )
+    
     
 
   }
