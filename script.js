@@ -71,9 +71,9 @@ let last_levier2    = -0.5;
 let current_piston_s = 0;
 let target_piston_s  = 0;
 let last_piston_s    = 0;
-const speed_leviers_e    = 0.003;
-const speed_bascule    = 0.003;
-const speed_piston_s    = 0.003;
+const speed_leviers_e    = 0.01;
+const speed_bascule    = 0.01;
+const speed_piston_s    = 0.01;
 const axe_bascule  = new THREE.Vector3(0, 0, 1);
 const axeZ     = new THREE.Vector3(0, 1, 0);
 const axe_leviers_e = new THREE.Vector3(1, 0, 0);
@@ -110,9 +110,15 @@ function animate() {
     if (current_bascule < target_bascule) {
       current_bascule = Math.min(current_bascule + speed_bascule, target_bascule);
     }
+    if (current_bascule > target_bascule) {
+      current_bascule = Math.max(current_bascule - speed_bascule, target_bascule);
+    }
 
     if (current_piston_s < target_piston_s) {
       current_piston_s = Math.min(current_piston_s + speed_piston_s, target_piston_s);
+    }
+    if (current_piston_s > target_piston_s) {
+      current_piston_s = Math.max(current_piston_s - speed_piston_s, target_piston_s);
     }
 
     if (current_levier2 > 0 ) {target_bascule = 1;}
@@ -131,7 +137,7 @@ function animate() {
 
     levier1.rotateOnWorldAxis(axe_leviers_e,  delta_levier1 );
     levier2.rotateOnWorldAxis(axe_leviers_e, delta_levier2 );
-    leviers_bascule.rotateOnWorldAxis(axe_bascule,  delta_bascule * 0.5 );
+    leviers_bascule.rotateOnWorldAxis(axe_bascule,  delta_bascule );
     piston_bascule.rotateOnWorldAxis(axe_bascule, delta_bascule * 0.0524 );
     tige_piston_s.translateOnAxis(axeZ, delta_piston_s )
 
