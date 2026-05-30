@@ -63,29 +63,27 @@ const levier2  = document.getElementById("levier2");
 let current_bascule = 0;
 let target_bascule  = 0;
 let last_bascule    = 0;
-let current_levier1 = 0;
-let target_levier1  = 0;
-let last_levier1    = 0;
-let current_levier2 = 0;
-let target_levier2  = 0;
-let last_levier2    = 0;
+let current_levier1 = -0.5;
+let target_levier1  = -0.5;
+let last_levier1    = -0.5;
+let current_levier2 = -0.5;
+let target_levier2  = -0.5;
+let last_levier2    = -0.5;
 let current_piston_s = 0;
 let target_piston_s  = 0;
 let last_piston_s    = 0;
-const speed    = 0.003;
+const speed_leviers_e    = 0.003;
+const speed_bascule    = 0.003;
+const speed_piston_s    = 0.003;
 const axe_leviers_e  = new THREE.Vector3(0, 0, 1);
 const axe_bascule     = new THREE.Vector3(0, 1, 0);
 
 levier1.addEventListener("click", () => {
-  current_levier1 = 0;
-  last_levier1    = 0;
-  target_levier1  = 1;
+  target_levier1  = -target_levier1;
 });
 
 levier2.addEventListener("click", () => {
-  current_levier2 = 0;
-  last_levier2    = 0;
-  target_levier2  = 1;
+  target_levier2  = -target_levier2;
 });
 
 // ANIMATION
@@ -94,19 +92,25 @@ function animate() {
   controls.update();
 
     if (current_levier1 < target_levier1) {
-      current_levier1 = Math.min(current_levier1 + speed, target_levier1);
+      current_levier1 = Math.min(current_levier1 + speed_leviers_e, target_levier1);
+    }
+    if (current_levier1 > target_levier1) {
+      current_levier1 = Math.max(current_levier1 - speed_leviers_e, target_levier1);
     }
 
     if (current_levier2 < target_levier2) {
-      current_levier2 = Math.min(current_levier2 + speed, target_levier2);
+      current_levier2 = Math.min(current_levier2 + speed_leviers_e, target_levier2);
+    }
+    if (current_levier2 > target_levier2) {
+      current_levier2 = Math.max(current_levier2 - speed_leviers_e, target_levier2);
     }
 
     if (current_bascule < target_bascule) {
-      current_bascule = Math.min(current_bascule + speed, target_bascule);
+      current_bascule = Math.min(current_bascule + speed_bascule, target_bascule);
     }
 
     if (current_piston_s < target_piston_s) {
-      current_piston_s = Math.min(current_piston_s + speed, target_piston_s);
+      current_piston_s = Math.min(current_piston_s + speed_piston_s, target_piston_s);
     }
 
     const delta_levier1 = current_levier1 - last_levier1;
@@ -118,10 +122,10 @@ function animate() {
     const delta_piston_s = current_piston_s - last_piston_s;
     last_piston_s = current_piston_s;
 
-    levier1.rotateOnWorldAxis(axe_leviers_e,  delta_levier1 * Math.PI * 2);
-    levier2.rotateOnWorldAxis(axe_leviers_e, delta_levier2 * Math.PI * 2 );
-    leviers.rotateOnWorldAxis(axe_bascule,  delta_bascule * Math.PI * 2 );
-    piston_bascule.rotateOnWorldAxis(axe_bascule, delta_bascule * Math.PI * 2 );
+    levier1.rotateOnWorldAxis(axe_leviers_e,  delta_levier1 );
+    levier2.rotateOnWorldAxis(axe_leviers_e, delta_levier2 );
+    leviers.rotateOnWorldAxis(axe_bascule,  delta_bascule );
+    piston_bascule.rotateOnWorldAxis(axe_bascule, delta_bascule );
     
 
   }
