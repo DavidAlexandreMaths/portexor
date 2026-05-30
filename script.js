@@ -26,7 +26,7 @@ scene.add(ambient);
 // ÉTAT ANIMATION (déclaré en dehors du loader)
 let levier1, levier2, leviers_bascule, tige_piston_bascule, piston_bascule, tige_piston_s;
 
-let current_bascule = 0,  target_bascule = 0,  last_bascule = 0;
+let current_bascule = -1,  target_bascule = -1,  last_bascule = -1;
 let current_levier1 = -0.5, target_levier1 = -0.5, last_levier1 = -0.5;
 let current_levier2 = -0.5, target_levier2 = -0.5, last_levier2 = -0.5;
 let current_piston_s = 0,  target_piston_s = 0,  last_piston_s = 0;
