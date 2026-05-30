@@ -29,7 +29,7 @@ let levier1, levier2, leviers_bascule, tige_piston_bascule, piston_bascule, tige
 let current_bascule = -1,  target_bascule = -1,  last_bascule = -1;
 let current_levier1 = -0.5, target_levier1 = -0.5, last_levier1 = -0.5;
 let current_levier2 = -0.5, target_levier2 = -0.5, last_levier2 = -0.5;
-let current_piston_s = 0.01,  target_piston_s = 0.01,  last_piston_s = 0.01;
+let current_piston_s = 0.007,  target_piston_s = 0.01,  last_piston_s = 0.007;
 
 const speed_leviers_e = 0.01;
 const speed_bascule   = 0.01;
