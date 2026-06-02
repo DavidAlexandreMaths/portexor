@@ -60,6 +60,11 @@ loader.load('porte_xor.glb', (gltf) => {
   tige_piston_s      = gltf.scene.getObjectByName("tige_piston_s");
   pipe_alim     = gltf.scene.getObjectByName("pipe_alim");
 
+  pipe_alim.material = pipe_alim.material.clone();
+  pipe_alim.material.emissive.set(0xffff99);
+  pipe_alim.material.emissiveIntensity = 50 ;
+
+
   // Reparenting en préservant la position monde
   const worldPos   = new THREE.Vector3();
   const worldQuat  = new THREE.Quaternion();
