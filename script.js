@@ -126,7 +126,8 @@ function animate() {
     levier2.rotateOnWorldAxis(axe_leviers_e, delta_levier2);
     leviers_bascule.rotateOnWorldAxis(axe_bascule, delta_bascule * 0.5);
     if (current_bascule < 0) {piston_bascule.rotateOnWorldAxis(axe_bascule, delta_bascule * 0.0524);}
-    else {piston_bascule.rotateOnWorldAxis(axe_bascule, delta_bascule * 0.105);}
+    else {piston_bascule.rotateOnWorldAxis(axe_bascule, -delta_bascule * 0.105);}
+    
 
     const localAxis = axeZ.clone().transformDirection(tige_piston_s.matrixWorld.clone().invert());
     tige_piston_s.translateOnAxis(localAxis.normalize(), delta_piston_s);
