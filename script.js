@@ -60,6 +60,7 @@ loader.load('porte_xor.glb', (gltf) => {
   pipe_alim     = gltf.scene.getObjectByName("pipe_alim");
 
   pipe_alim.material.emissive.set(0xffaa00);
+  pipe_alim.material.emissiveIntensity = 5 ;
 
   // Reparenting en préservant la position monde
   const worldPos   = new THREE.Vector3();
@@ -86,8 +87,6 @@ startlevier2.addEventListener("click", () => {
 
 
 // ANIMATION
-
-pipe_alim.material.emissiveIntensity = 5 ;
 
 function animate() {
   requestAnimationFrame(animate);
