@@ -114,7 +114,7 @@ function animate() {
     if ((current_levier1 < 0) === (current_bascule < 0)) {
       target_piston_s = 0.012;
     } else {
-      target_piston_s = -0.005;
+      target_piston_s = -0.004;
     }
 
     const delta_levier1  = current_levier1  - last_levier1;  last_levier1  = current_levier1;
@@ -125,7 +125,8 @@ function animate() {
     levier1.rotateOnWorldAxis(axe_leviers_e, delta_levier1);
     levier2.rotateOnWorldAxis(axe_leviers_e, delta_levier2);
     leviers_bascule.rotateOnWorldAxis(axe_bascule, delta_bascule * 0.5);
-    piston_bascule.rotateOnWorldAxis(axe_bascule, delta_bascule * 0.0524);
+    if (current_bascule < 0) {piston_bascule.rotateOnWorldAxis(axe_bascule, delta_bascule * 0.0524);}
+    else {piston_bascule.rotateOnWorldAxis(axe_bascule, delta_bascule * 0.105);}
 
     const localAxis = axeZ.clone().transformDirection(tige_piston_s.matrixWorld.clone().invert());
     tige_piston_s.translateOnAxis(localAxis.normalize(), delta_piston_s);
