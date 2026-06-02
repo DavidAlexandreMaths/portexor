@@ -82,7 +82,7 @@ startlevier2.addEventListener("click", () => {
   target_levier2 = -target_levier2;
 });
 
-pipe_alim.material.emissiveIntensity.set(0x00ffcc);
+pipe_alim.material.emissive.set(0xffaa00);
 pipe_alim.material.emissiveIntensity = 5 ;
 
 // ANIMATION
