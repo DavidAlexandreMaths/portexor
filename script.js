@@ -26,6 +26,7 @@ scene.add(ambient);
 // ÉTAT ANIMATION (déclaré en dehors du loader)
 let levier1, levier2, leviers_bascule, tige_piston_bascule, piston_bascule, tige_piston_s, pipe_alim;
 
+let light_pipe = null;
 let current_bascule = -1,  target_bascule = -1,  last_bascule = -1;
 let current_levier1 = -0.5, target_levier1 = -0.5, last_levier1 = -0.5;
 let current_levier2 = -0.5, target_levier2 = -0.5, last_levier2 = -0.5;
@@ -62,6 +63,9 @@ loader.load('porte_xor.glb', (gltf) => {
   pipe_alim.material = pipe_alim.material.clone();
   pipe_alim.material.emissive.set(0xffdd00);
   pipe_alim.material.emissiveIntensity = 8 ;
+  light_pipe = new THREE.PointLight(0xffff99, 2); 
+  light_pipe.position.copy(pipe_alim.position);
+  scene.add(light_pipe);
 
   // Reparenting en préservant la position monde
   const worldPos   = new THREE.Vector3();
