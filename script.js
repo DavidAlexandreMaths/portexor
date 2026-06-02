@@ -61,7 +61,7 @@ loader.load('porte_xor.glb', (gltf) => {
   pipe_alim     = gltf.scene.getObjectByName("pipe_alim");
 
   pipe_alim.material = pipe_alim.material.clone();
-  pipe_alim.material.emissive.set(0xffdd00);
+  pipe_alim.material.emissive.set(0xffff99);
   pipe_alim.material.emissiveIntensity = 8 ;
   light_pipe = new THREE.PointLight(0xffff99, 2); 
   light_pipe.position.copy(pipe_alim.position);
