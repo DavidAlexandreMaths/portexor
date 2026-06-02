@@ -112,9 +112,9 @@ function animate() {
     if (current_levier2 < 0) target_bascule = -1;
 
     if ((current_levier1 < 0) === (current_bascule < 0)) {
-      target_piston_s = 0.01;
+      target_piston_s = 0.012;
     } else {
-      target_piston_s = -0.007;
+      target_piston_s = -0.005;
     }
 
     const delta_levier1  = current_levier1  - last_levier1;  last_levier1  = current_levier1;
