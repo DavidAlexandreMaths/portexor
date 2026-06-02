@@ -62,7 +62,7 @@ loader.load('porte_xor.glb', (gltf) => {
 
   pipe_alim.material = pipe_alim.material.clone();
   pipe_alim.material.emissive.set(0xffff99);
-  pipe_alim.material.emissiveIntensity = 50 ;
+  pipe_alim.material.emissiveIntensity = 0 ;
 
 
   // Reparenting en préservant la position monde
@@ -129,7 +129,7 @@ function animate() {
     if (current_bascule < 0) {piston_bascule.rotateOnWorldAxis(axe_bascule, delta_bascule * 0.0524);}
     else {piston_bascule.rotateOnWorldAxis(axe_bascule, -delta_bascule * 0.105);}
 
-    tige_piston_bascule.translateOnAxis(axeZ, delta_bascule * 0.03);
+    tige_piston_bascule.translateOnAxis(axeZ, -delta_bascule * 0.03);
 
     const localAxis = axeZ.clone().transformDirection(tige_piston_s.matrixWorld.clone().invert());
     tige_piston_s.translateOnAxis(localAxis.normalize(), delta_piston_s);
